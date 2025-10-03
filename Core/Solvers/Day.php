@@ -1,5 +1,5 @@
 <?php
-namespace Core\Solvers\AOC2024;
+namespace Core\Solvers;
 
 class Day{
     protected string $input;
@@ -31,6 +31,5 @@ class Day{
     protected function part_2() {
         return "";
     }
-
-
 }
+

@@ -1,7 +1,7 @@
 <?php
 namespace Core\Lists;
 
-class DayList2025
+class DayList2023
 {
     private const LIST = [
         '01' => 'not implemented',

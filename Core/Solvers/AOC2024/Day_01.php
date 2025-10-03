@@ -2,6 +2,7 @@
 namespace Core\Solvers\AOC2024;
 
 use Core\Helper\Splitter;
+use Core\Solvers\Day;
 use Exception;
 
 class Day_01 extends Day

@@ -17,7 +17,7 @@ spl_autoload_register(function ($class) {
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if (preg_match('/\.[a-zA-Z0-9]{1,6}$/', $uri)) {
     $resources = realpath(BASE_PATH . 'resources');
-    $request = realpath($resources . $uri);
+    $request = realpath("{$resources}{$uri}");
     if ($request != false && strpos($request, $resources) === 0 && is_file($request)) {
         $extension = strtolower(pathinfo($request, PATHINFO_EXTENSION));
         $mimes = [

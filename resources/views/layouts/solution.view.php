@@ -1,6 +1,6 @@
 <?php require __DIR__ . '/../partials/head.php'; ?>
 <main>
-    <form action="/year/2024/day/solve?id=<?=$dayId?>" method="post" enctype="multipart/form-data">
+    <form action="/year/<?=$year?>/day/solve?id=<?=$dayId?>" method="post" enctype="multipart/form-data">
         <label for="puzzle_input">Please upload the AOC provided puzzle input as a .txt file here</label><br>
         <input type="hidden" name="MAX_FILE_SIZE" value="300000">
         <input type="file" name="puzzle_in" id="puzzle_input"><br><br>

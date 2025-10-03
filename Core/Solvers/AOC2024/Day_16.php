@@ -1,6 +1,7 @@
 <?php
 namespace Core\Solvers\AOC2024;
 
+use Core\Solvers\Day;
 use Core\Helper\Splitter;
 
 class Day_16 extends Day

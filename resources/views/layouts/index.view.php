@@ -7,7 +7,7 @@
     <ul>
 <?php foreach($index as $ind => $title) { ?>
         <li>
-            <a href="<?=($base_href ?? '').($index_base ?? '').($ind)?>"><?="$title - $ind"?></a>
+            <a href="<?=$base_href ?? ''?><?=$index_base ?? ''?><?=$ind?>"><?="$title - $ind"?></a>
         </li>
 <?php } ?>
     </ul>

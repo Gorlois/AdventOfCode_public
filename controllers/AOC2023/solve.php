@@ -1,7 +1,7 @@
 <?php
-use Core\Lists\DayList2024;
+use Core\Lists\DayList2023;
 
-$daylist = DayList2024::list();
+$daylist = DayList2023::list();
 $id = (string) $_GET['id'];
 $heading = "day $id - $daylist[$id]";
 
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $f_tmp_path = $_FILES['puzzle_in']['tmp_name'];
         $input = file_get_contents($f_tmp_path);
         $part = $_POST['part'];
-        $classname = "Core\\Solvers\\AoC2024\\Day_". str_pad($id, 2, '0', STR_PAD_LEFT);
+        $classname = "Core\\Solvers\\AoC2023\\Day_". str_pad($id, 2, '0', STR_PAD_LEFT);
         if (class_exists($classname)) {
             consoleLog("load ".$classname);
             $solver = new $classname($input, $part);
@@ -30,7 +30,7 @@ view(
     [
         'heading' => $heading,
         'dayId' => $id,
-        'year' => '2024',
+        'year' => '2023',
         'solution' => $solution
     ]
 );

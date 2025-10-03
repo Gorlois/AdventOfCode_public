@@ -1,10 +1,10 @@
 <?php
 
-use Core\Lists\DayList2024;
+use Core\Lists\DayList2023;
 
 $id = $_GET['id'];
-$daylist = DayList2024::list();
-$heading = "AoC '24 - day $id - $daylist[$id]";
+$daylist = DayList2023::list();
+$heading = "AoC '23 - day $id - $daylist[$id]";
 
 view(
     "layouts/input.view.php",
