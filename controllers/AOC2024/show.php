@@ -10,7 +10,7 @@ view(
     "layouts/input.view.php",
     [
         'heading' => $heading,
-        'year' => '2023',
+        'year' => '2024',
         'dayId' => $id,
     ]
 );

@@ -16,12 +16,6 @@ class Mapper {
     ];
     
     public static function map(array $strings): array {
-        $map = [];
-        foreach ($strings as $y_index => $string) {
-            foreach (str_split($string) as $x_index => $tile) {
-                $map[$y_index][$x_index] = $tile;
-            }
-        }
-        return $map;
+        return array_map('str_split', $strings);
     }
 }

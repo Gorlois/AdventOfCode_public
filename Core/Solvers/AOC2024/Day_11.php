@@ -3,17 +3,20 @@ namespace Core\Solvers\AOC2024;
 
 use Core\Helper\Splitter;
 use Core\Solvers\Day;
+use Core\Traits\Memoizable;
 
 class Day_11 extends Day
 {
+    use Memoizable;
     protected function part_1()
     {
         // sanitize
         $input = Splitter::mergeOnLinebreak($this->input);
         $ans = 0;
-        $mem = [];
         foreach (array_map('intval', explode(" ", $input)) as $stone) {
-            $ans += $this->blink($stone, 25, $mem);
+            $ans += $this->memoize("blink:$stone,25", function () use ($stone) {
+                return $this->blink($stone, 25);
+            });
         }
         return "there where $ans stones after 25 blinks";
     }
@@ -34,33 +37,31 @@ class Day_11 extends Day
         // sanitize
         $input = str_replace("\r\n", "", $this->input);
         $ans = 0;
-        $mem = [];
         foreach (array_map('intval', explode(" ", $input)) as $stone) {
-            $ans += $this->blink($stone, 75, $mem);
+            $ans += $this->memoize("blink:$stone,75", function() use ($stone) {
+                return $this->blink($stone, 75);
+            });
         }
         return "there where $ans stones after 75 blinks";
     }
 
-    private function blink(int $stone, int $blinks, &$stone_mem = [], &$blink_mem = [])
+    private function blink(int $stone, int $blinks)
     {
-        $memo_name = "$stone,$blinks";
-
-        if (isset($blink_mem[$memo_name])) {
-            return $blink_mem[$memo_name];
-        }
-
         if ($blinks <= 0) {
             return 1;
         }
+        
+        $blinks--;
 
         $stone_count = 0;
-        foreach ($this->split_stone($stone, $stone_mem) as $split_stone) {
-            $stone_count += $this->blink($split_stone, $blinks - 1, $blink_mem, $stone_mem);
+        foreach ($this->memoize("split:$stone", function() use ($stone) {
+            return $this->split_stone($stone); }) as $split_stone) {
+            $stone_count += $this->memoize("blink:$split_stone,$blinks", function () use ($blinks, $split_stone) {
+                return $this->blink($split_stone, $blinks);
+            });
         }
 
-        $blink_mem[$memo_name] = $stone_count;
-
-        return $blink_mem[$memo_name];
+        return $stone_count;
     }
 
     /**
@@ -69,17 +70,13 @@ class Day_11 extends Day
      * @param int $stone
      * @param mixed $stone_mem: a memoization array for split stone
      */
-    private function split_stone(int $stone, &$stone_mem)
+    private function split_stone(int $stone): array
     {
         if ($stone == 0)
             return [1];
-        if (isset($stone_mem[$stone]))
-            return $stone_mem[$stone];
 
         $length = strlen($stone);
-        $stone_mem[$stone] = $length % 2 == 0 ? [(int) substr((string) $stone, 0, $length / 2), (int) substr((string) $stone, $length / 2)] : [$stone * 2024];
-
-        return $stone_mem[$stone];
+        return $length % 2 == 0 ? [(int) substr((string) $stone, 0, $length / 2), (int) substr((string) $stone, $length / 2)] : [$stone * 2024];
     }
 
     private function memBlink(int $stone, int $blinks, &$mem)
